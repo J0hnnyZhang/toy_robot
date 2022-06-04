@@ -11,16 +11,16 @@ class TestRobot(TestCase):
         self.robot = Robot(Navigator(Table()), Position(0, 0, Facing.NORTH))
 
     def test_turn_left(self):
-        with mock.patch.object(Position, "facing_left") as mocked_facing_left:
+        with mock.patch.object(Position, "change_facing_to") as mocked_change_facing_to:
             robot = Robot(Navigator(Table()), Position(0, 0, Facing.NORTH))
             robot.turn_left()
-            mocked_facing_left.assert_called_once()
+            mocked_change_facing_to.assert_called_with("left")
 
     def test_turn_right(self):
-        with mock.patch.object(Position, "facing_right") as mocked_facing_right:
+        with mock.patch.object(Position, "change_facing_to") as mocked_change_facing_to:
             robot = Robot(Navigator(Table()), Position(0, 0, Facing.NORTH))
             robot.turn_right()
-            mocked_facing_right.assert_called_once()
+            mocked_change_facing_to.assert_called_with("right")
 
     def test_set_position(self):
         self.robot.set_position(Position(4, 2, Facing.NORTH))
