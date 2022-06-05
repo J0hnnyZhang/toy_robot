@@ -90,7 +90,7 @@ class TestCommandsInterpreter:
 
     def test_interpret_when_multiple_commands(self, robot):
         ci = CommandsInterpreter(robot)
-        commands = ci.interpret(["PLACE 0,0,EAST", "moVe", "left", "Right", "report"])
+        commands = ci.interpret([" PLACE 0,0,EAST ", "moVe", "left", "Right", "report "])
         assert len(commands) == 5
         assert isinstance(commands[0], PlaceCommand) is True
         assert isinstance(commands[1], MoveCommand) is True
@@ -105,9 +105,5 @@ class TestCommandsInterpreter:
 
     def test_interpret_when_blank_commands(self, robot):
         ci = CommandsInterpreter(robot)
-        with pytest.raises(CommandError) as exc_info:
-            ci.interpret(["   "])
-        assert exc_info.value.args[0] == (
-            "Argument commands must have args and args string should be the second argument, "
-            "and multiple arguments should be separated by ',' such as 'PLACE 0,0,NORTH'"
-        )
+        commands = ci.interpret(["   "])
+        assert len(commands) == 0

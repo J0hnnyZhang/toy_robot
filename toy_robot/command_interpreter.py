@@ -93,9 +93,9 @@ class CommandsInterpreter:
     def interpret(self, command_list: List[str]) -> List[Command]:
         commands: List[Command] = []
         for command_text in command_list:
-            cmd = command_text.split(" ")
+            cmd = command_text.strip().split(" ")
             if len(cmd) > 1:
                 commands.append(ArgumentCommandsTranslator.translate(self.robot, *cmd))
-            else:
+            elif cmd[0]:
                 commands.append(SimpleCommandsTranslator.translate(self.robot, *cmd))
         return commands
