@@ -1,3 +1,7 @@
+"""
+Command line for toy robot game. There are two mode, one is interactive mode for player to input commands one by one,
+another is automatic mode which can let the robot load commands from a file
+"""
 import sys
 
 from toy_robot.command_interpreter import CommandError
@@ -6,6 +10,10 @@ from toy_robot.robot import Robot
 
 
 def initialize_table() -> Table:
+    """
+    Interactively initialize the table for the robot to stand
+    :return: Table
+    """
     table_size = input("Please input the table size, default size is 5x5: ")
     while 1:
         if table_size:
@@ -23,6 +31,10 @@ def initialize_table() -> Table:
 
 
 def initialize() -> Robot:
+    """
+    Initialize a robot
+    :return: Robot
+    """
     print(
         "Welcome to toy robot game! Choose a table size, then you can command the robot to move on the table.\n"
     )
@@ -31,6 +43,11 @@ def initialize() -> Robot:
 
 
 def play(robot: Robot):
+    """
+    Interactively, play the toy robot game
+    :param robot: Robot
+    :return: None
+    """
     print(
         "\nPLACE command to set the robot position on the table;\n"
         "MOVE command to order the robot move one step forward;\n"
@@ -59,11 +76,20 @@ def play(robot: Robot):
 
 
 def interactive_mode():
+    """
+    Interactively play the toy robot game
+    :return: None
+    """
     robot = initialize()
     play(robot)
 
 
 def automatic_mode(commands_filepath: str):
+    """
+    Automatically play the toy robot game
+    :param commands_filepath: the path of the file which contains a bunch of commands
+    :return: None
+    """
     robot = Robot(Navigator(Table()))
     with open(commands_filepath, "r", encoding="utf-8") as file:
         for line in file:

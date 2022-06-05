@@ -11,4 +11,4 @@ good-names=i,
 [FORMAT]
 max-line-length=120
 [DESIGN]
-min-public-methods=0
+min-public-methods=1

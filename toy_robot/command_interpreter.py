@@ -1,3 +1,6 @@
+"""
+Command interpreter which translate string commands into the commands which the robot can understand
+"""
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
@@ -50,7 +53,7 @@ class ArgumentCommandsTranslator(CommandTranslator):
         if len(command_text) != 2:
             raise CommandError(
                 "Argument commands must have args and args string should be the second argument, "
-                "and multiple arguments should be separated by ','"
+                "and multiple arguments should be separated by ',' "
                 "such as 'PLACE 0,0,NORTH'"
             )
 
@@ -84,18 +87,10 @@ class ArgumentCommandsTranslator(CommandTranslator):
 
 
 class CommandsInterpreter:
-    def __init__(self, robot: Optional[RobotPrototype]):
-        self.robot: Optional[RobotPrototype] = None
-        if robot:
-            self.init(robot)
-
-    def init(self, robot: RobotPrototype):
+    def __init__(self, robot: RobotPrototype):
         self.robot = robot
 
     def interpret(self, command_list: List[str]) -> List[Command]:
-        if not self.robot:
-            raise ValueError("Should call init before interpret")
-
         commands: List[Command] = []
         for command_text in command_list:
             cmd = command_text.split(" ")

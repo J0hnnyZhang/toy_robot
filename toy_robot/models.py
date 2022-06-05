@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from enum import Enum
 from typing import List
 
@@ -62,7 +63,11 @@ class Position:
         return self.x == other.x and self.y == other.y and self.facing == other.facing
 
 
+@dataclass
 class Table:
+    max_x: int
+    max_y: int
+
     def __init__(self, width: int = 5, length: int = 5):
         if width < 1 or length < 1:
             raise ValueError(
