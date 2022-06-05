@@ -47,7 +47,9 @@ class Position:
             case "right":
                 facing_to = self.f.right()
             case _:
-                raise NotImplementedError("Invalid arguments, only 'left' and 'right' is allowed for now")
+                raise NotImplementedError(
+                    "Invalid arguments, only 'left' and 'right' is allowed for now"
+                )
 
         self.change_facing(facing_to)
 
@@ -63,12 +65,13 @@ class Position:
 class Table:
     def __init__(self, width: int = 5, length: int = 5):
         if width < 1 or length < 1:
-            raise ValueError("A table should not has negative or zero value for length or width")
+            raise ValueError(
+                "A table should not has negative or zero value for length or width"
+            )
         self.max_x, self.max_y = width - 1, length - 1
 
 
 class Navigator:
-
     def __init__(self, table: Table):
         self.table = table
 

@@ -23,7 +23,9 @@ def initialize_table() -> Table:
 
 
 def initialize() -> Robot:
-    print("Welcome to toy robot game! Choose a table size, then you can command the robot to move on the table.\n")
+    print(
+        "Welcome to toy robot game! Choose a table size, then you can command the robot to move on the table.\n"
+    )
     table = initialize_table()
     return Robot(Navigator(table))
 
@@ -68,7 +70,7 @@ def automatic_mode(commands_filepath: str):
             robot.await_orders([line.strip()])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = sys.argv
     if len(args) < 2:
         interactive_mode()

@@ -1,7 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from toy_robot.commands import MoveCommand, LeftCommand, RightCommand, ReportCommand, PlaceCommand, Command
+from toy_robot.commands import (
+    MoveCommand,
+    LeftCommand,
+    RightCommand,
+    ReportCommand,
+    PlaceCommand,
+    Command,
+)
 from toy_robot.models import Facing, RobotPrototype
 
 
@@ -71,7 +78,9 @@ class ArgumentCommandsTranslator(CommandTranslator):
         except ValueError:
             raise CommandError("PLACE command x and y arguments must be integers")
         except KeyError:
-            raise CommandError(f"PLACE command facing argument must be in {[f.name for f in Facing]}")
+            raise CommandError(
+                f"PLACE command facing argument must be in {[f.name for f in Facing]}"
+            )
 
 
 class CommandsInterpreter:
