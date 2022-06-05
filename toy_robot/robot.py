@@ -37,14 +37,17 @@ class Robot(RobotPrototype):
 
     @_ensure_place_command_first
     def turn_left(self) -> None:
+        assert self.current_position is not None
         self.current_position.change_facing_to("left")
 
     @_ensure_place_command_first
     def turn_right(self) -> None:
+        assert self.current_position is not None
         self.current_position.change_facing_to("right")
 
     @_ensure_place_command_first
     def move_forward(self) -> None:
+        assert self.current_position is not None
         position = self.current_position.front()
         if self.navigator.safe(position):
             self.current_position = position

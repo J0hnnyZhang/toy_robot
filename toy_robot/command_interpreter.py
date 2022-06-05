@@ -85,7 +85,7 @@ class ArgumentCommandsTranslator(CommandTranslator):
 
 class CommandsInterpreter:
     def __init__(self, robot: Optional[RobotPrototype]):
-        self.robot = None
+        self.robot: Optional[RobotPrototype] = None
         if robot:
             self.init(robot)
 
