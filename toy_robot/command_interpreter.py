@@ -71,16 +71,16 @@ class ArgumentCommandsTranslator(CommandTranslator):
             raise CommandError(
                 "PLACE command should has 3 args, represent 'x,y,FACING', such as '0,0,NORTH'"
             )
-        x, y, f = args[0], args[1], args[2]
+        x, y, facing = args[0], args[1], args[2]
 
         try:
-            return PlaceCommand(robot, int(x), int(y), Facing[f.upper()])
-        except ValueError:
-            raise CommandError("PLACE command x and y arguments must be integers")
-        except KeyError:
+            return PlaceCommand(robot, int(x), int(y), Facing[facing.upper()])
+        except ValueError as e:
+            raise CommandError("PLACE command x and y arguments must be integers") from e
+        except KeyError as e:
             raise CommandError(
                 f"PLACE command facing argument must be in {[f.name for f in Facing]}"
-            )
+            ) from e
 
 
 class CommandsInterpreter:

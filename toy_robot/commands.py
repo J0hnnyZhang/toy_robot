@@ -10,9 +10,9 @@ class Command(ABC):
 
 
 class PlaceCommand(Command):
-    def __init__(self, robot: RobotPrototype, x: int, y: int, f: Facing):
+    def __init__(self, robot: RobotPrototype, x: int, y: int, facing: Facing):
         self.robot = robot
-        self.position = Position(x, y, f)
+        self.position = Position(x, y, facing)
 
     def execute(self) -> None:
         self.robot.set_position(self.position)

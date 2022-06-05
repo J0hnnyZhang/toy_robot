@@ -17,12 +17,12 @@ class Facing(Enum):
 
 
 class Position:
-    def __init__(self, x: int, y: int, f: Facing):
-        self.x, self.y, self.f = x, y, f
+    def __init__(self, x: int, y: int, facing: Facing):
+        self.x, self.y, self.facing = x, y, facing
 
     def front(self) -> "Position":
         x, y = self.x, self.y
-        match self.f:
+        match self.facing:
             case Facing.NORTH:
                 y += 1
             case Facing.WEST:
@@ -35,17 +35,17 @@ class Position:
                 raise ValueError(
                     f"This branch should not be touched, Facing value should be in {[f.name for f in Facing]}"
                 )
-        return Position(x, y, self.f)
+        return Position(x, y, self.facing)
 
     def change_facing(self, facing: Facing) -> None:
-        self.f = facing
+        self.facing = facing
 
     def change_facing_to(self, facing: str):
         match facing.lower():
             case "left":
-                facing_to = self.f.left()
+                facing_to = self.facing.left()
             case "right":
-                facing_to = self.f.right()
+                facing_to = self.facing.right()
             case _:
                 raise NotImplementedError(
                     "Invalid arguments, only 'left' and 'right' is allowed for now"
@@ -54,12 +54,12 @@ class Position:
         self.change_facing(facing_to)
 
     def __repr__(self) -> str:
-        return f"{self.x},{self.y},{self.f.name}"
+        return f"{self.x},{self.y},{self.facing.name}"
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, Position):
             return False
-        return self.x == other.x and self.y == other.y and self.f == other.f
+        return self.x == other.x and self.y == other.y and self.facing == other.facing
 
 
 class Table:

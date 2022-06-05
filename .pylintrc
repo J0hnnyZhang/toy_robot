@@ -1,0 +1,14 @@
+[BASIC]
+good-names=i,
+           j,
+           k,
+           x,
+           y,
+           e,
+           ex,
+           Run,
+           _
+[FORMAT]
+max-line-length=120
+[DESIGN]
+min-public-methods=0

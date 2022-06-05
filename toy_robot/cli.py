@@ -65,8 +65,8 @@ def interactive_mode():
 
 def automatic_mode(commands_filepath: str):
     robot = Robot(Navigator(Table()))
-    with open(commands_filepath, "r") as f:
-        for line in f:
+    with open(commands_filepath, "r", encoding="utf-8") as file:
+        for line in file:
             robot.await_orders([line.strip()])
 
 

@@ -42,19 +42,19 @@ class TestPosition(TestCase):
     def test_change_facing(self):
         position = Position(0, 0, Facing.NORTH)
         position.change_facing(Facing.SOUTH)
-        assert position.f == Facing.SOUTH
+        assert position.facing == Facing.SOUTH
 
-        facing_right = position.f.right()
+        facing_right = position.facing.right()
         position.change_facing(facing_right)
-        assert position.f == Facing.WEST
+        assert position.facing == Facing.WEST
 
     def test_change_facing_to_when_origin_facing_is_north(self):
         position = Position(0, 0, Facing.NORTH)
         position.change_facing_to("right")
-        assert position.f == Facing.EAST
+        assert position.facing == Facing.EAST
 
         position.change_facing_to("LEFT")
-        assert position.f == Facing.NORTH
+        assert position.facing == Facing.NORTH
 
     def test_change_facing_to_when_invalid_facing_direction(self):
         position = Position(0, 0, Facing.WEST)

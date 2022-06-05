@@ -5,14 +5,13 @@ from toy_robot.commands import Command
 from toy_robot.models import Position, Navigator, RobotPrototype
 
 
-def _ensure_place_command_first(fn):
+def _ensure_place_command_first(func):
     def wrapper(robot, *args):
         if not robot.current_position:
             raise ValueError(
                 "Please use PLACE command to put the robot on the table first, then you can order the robot to move"
             )
-        else:
-            fn(robot, *args)
+        func(robot, *args)
 
     return wrapper
 
@@ -52,7 +51,7 @@ class Robot(RobotPrototype):
         if self.navigator.safe(position):
             self.current_position = position
         else:
-            print(f"This movement may endanger the robot, refuse to move")
+            print("This movement may endanger the robot, refuse to move")
 
     @_ensure_place_command_first
     def report(self) -> None:

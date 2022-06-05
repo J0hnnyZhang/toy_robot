@@ -24,7 +24,7 @@ class TestRobot(TestCase):
 
     def test_set_position(self):
         self.robot.set_position(Position(4, 2, Facing.NORTH))
-        x, y, f = self.robot.current_position.x, self.robot.current_position.y, self.robot.current_position.f
+        x, y, f = self.robot.current_position.x, self.robot.current_position.y, self.robot.current_position.facing
         assert x == 4
         assert y == 2
         assert f == Facing.NORTH
