@@ -2,14 +2,13 @@ from abc import ABC, abstractmethod
 from typing import List, Optional
 
 from toy_robot.commands import MoveCommand, LeftCommand, RightCommand, ReportCommand, PlaceCommand, Command
-from toy_robot.models import Facing
-from toy_robot.robot import Robot
+from toy_robot.models import Facing, RobotPrototype
 
 
 class CommandTranslator(ABC):
     @staticmethod
     @abstractmethod
-    def translate(robot: Robot, *command_text: str):
+    def translate(robot: RobotPrototype, *command_text: str):
         pass
 
 
@@ -19,7 +18,7 @@ class CommandError(Exception):
 
 class SimpleCommandsTranslator(CommandTranslator):
     @staticmethod
-    def translate(robot: Robot, *command_text: str):
+    def translate(robot: RobotPrototype, *command_text: str):
         if len(command_text) != 1:
             raise CommandError("Simple commands should not have args")
         cmd = command_text[0].upper()
@@ -40,9 +39,13 @@ class SimpleCommandsTranslator(CommandTranslator):
 
 class ArgumentCommandsTranslator(CommandTranslator):
     @staticmethod
-    def translate(robot: Robot, *command_text: str):
+    def translate(robot: RobotPrototype, *command_text: str):
         if len(command_text) != 2:
-            raise CommandError("Argument commands must have args and args string should be the second argument")
+            raise CommandError(
+                "Argument commands must have args and args string should be the second argument, "
+                "and multiple arguments should be separated by ','"
+                "such as 'PLACE 0,0,NORTH'"
+            )
 
         cmd = command_text[0].upper()
         args = command_text[1].split(",")
@@ -52,11 +55,11 @@ class ArgumentCommandsTranslator(CommandTranslator):
                 return ArgumentCommandsTranslator._translate_place_command(robot, *args)
             case _:
                 raise CommandError(
-                    f"Unsupported command of {cmd}, supported argument commands: place, such as 'PLACE 0,0,NORTH'"
+                    f"Unsupported command of {cmd}, supported argument commands: PLACE, such as 'PLACE 0,0,NORTH'"
                 )
 
     @staticmethod
-    def _translate_place_command(robot: Robot, *args):
+    def _translate_place_command(robot: RobotPrototype, *args):
         if len(args) != 3:
             raise CommandError(
                 "PLACE command should has 3 args, represent 'x,y,FACING', such as '0,0,NORTH'"
@@ -64,20 +67,20 @@ class ArgumentCommandsTranslator(CommandTranslator):
         x, y, f = args[0], args[1], args[2]
 
         try:
-            return PlaceCommand(robot, int(x), int(y), Facing[f])
+            return PlaceCommand(robot, int(x), int(y), Facing[f.upper()])
         except ValueError:
             raise CommandError("PLACE command x and y arguments must be integers")
         except KeyError:
             raise CommandError(f"PLACE command facing argument must be in {[f.name for f in Facing]}")
 
 
-class RobotCommandsInterpreter:
-    def __init__(self, robot: Optional[Robot]):
+class CommandsInterpreter:
+    def __init__(self, robot: Optional[RobotPrototype]):
         self.robot = None
         if robot:
             self.init(robot)
 
-    def init(self, robot: Robot):
+    def init(self, robot: RobotPrototype):
         self.robot = robot
 
     def interpret(self, command_list: List[str]) -> List[Command]:

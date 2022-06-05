@@ -42,3 +42,7 @@ class TestRobot(TestCase):
         self.robot.move_forward()
         assert self.robot.current_position.x == 0
         assert self.robot.current_position.y == 1
+
+    def test_await_orders(self):
+        self.robot.await_orders(["PLACE 1,2,EAST", "MOVE", "REPORT"])
+        assert self.robot.current_position.x == 2

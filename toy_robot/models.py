@@ -1,4 +1,6 @@
+from abc import ABC, abstractmethod
 from enum import Enum
+from typing import List
 
 
 class Facing(Enum):
@@ -73,3 +75,29 @@ class Navigator:
     def safe(self, position: Position) -> bool:
         x, y = position.x, position.y
         return 0 <= x <= self.table.max_x and 0 <= y <= self.table.max_y
+
+
+class RobotPrototype(ABC):
+    @abstractmethod
+    def set_position(self, position: Position):
+        pass
+
+    @abstractmethod
+    def turn_left(self) -> None:
+        pass
+
+    @abstractmethod
+    def turn_right(self) -> None:
+        pass
+
+    @abstractmethod
+    def move_forward(self) -> None:
+        pass
+
+    @abstractmethod
+    def report(self) -> None:
+        pass
+
+    @abstractmethod
+    def await_orders(self, commands: List[str]):
+        pass

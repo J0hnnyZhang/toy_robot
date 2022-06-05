@@ -43,7 +43,8 @@ class TestArgumentCommandTranslator:
         with pytest.raises(CommandError) as exc_info:
             ArgumentCommandsTranslator.translate(robot, "Place", "r,5,EAST", "33")
         assert exc_info.value.args[0] == (
-            "Argument commands must have args and args string should be the second argument"
+            "Argument commands must have args and args string should be the second "
+            "argument, and multiple arguments should be separated by ','such as 'PLACE 0,0,NORTH'"
         )
 
     def test_translate_when_invalid_arguments_format(self, robot):
@@ -74,5 +75,5 @@ class TestArgumentCommandTranslator:
         with pytest.raises(CommandError) as exc_info:
             ArgumentCommandsTranslator.translate(robot, "jump", "1,2,SOUTH_EAST")
         assert exc_info.value.args[0] == (
-            "Unsupported command of JUMP, supported argument commands: place, such as 'PLACE 0,0,NORTH'"
+            "Unsupported command of JUMP, supported argument commands: PLACE, such as 'PLACE 0,0,NORTH'"
         )

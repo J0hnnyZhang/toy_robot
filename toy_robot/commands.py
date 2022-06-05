@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-from toy_robot.models import Facing, Position
-from toy_robot.robot import Robot
+from toy_robot.models import Facing, Position, RobotPrototype
 
 
 class Command(ABC):
@@ -11,7 +10,7 @@ class Command(ABC):
 
 
 class PlaceCommand(Command):
-    def __init__(self, robot: Robot, x: int, y: int, f: Facing):
+    def __init__(self, robot: RobotPrototype, x: int, y: int, f: Facing):
         self.robot = robot
         self.position = Position(x, y, f)
 
@@ -20,7 +19,7 @@ class PlaceCommand(Command):
 
 
 class MoveCommand(Command):
-    def __init__(self, robot: Robot):
+    def __init__(self, robot: RobotPrototype):
         self.robot = robot
 
     def execute(self):
@@ -28,7 +27,7 @@ class MoveCommand(Command):
 
 
 class LeftCommand(Command):
-    def __init__(self, robot: Robot):
+    def __init__(self, robot: RobotPrototype):
         self.robot = robot
 
     def execute(self) -> None:
@@ -36,7 +35,7 @@ class LeftCommand(Command):
 
 
 class RightCommand(Command):
-    def __init__(self, robot: Robot):
+    def __init__(self, robot: RobotPrototype):
         self.robot = robot
 
     def execute(self) -> None:
@@ -44,7 +43,7 @@ class RightCommand(Command):
 
 
 class ReportCommand(Command):
-    def __init__(self, robot: Robot):
+    def __init__(self, robot: RobotPrototype):
         self.robot = robot
 
     def execute(self) -> None:
