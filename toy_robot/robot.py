@@ -11,10 +11,11 @@ from toy_robot.models import Position, Navigator, RobotPrototype
 def _ensure_place_command_first(func):
     def wrapper(robot, *args):
         if not robot.current_position:
-            raise ValueError(
+            print(
                 "Please use PLACE command to put the robot on the table first, then you can order the robot to move"
             )
-        func(robot, *args)
+        else:
+            func(robot, *args)
 
     return wrapper
 

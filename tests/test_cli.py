@@ -58,7 +58,17 @@ def test_automatic_mode_commands_5_when_place_command_not_first(stdout):
     automatic_mode(commands_filepath)
     assert stdout.getvalue() == (
         "Please use PLACE command to put the robot on the table first, then you can order the robot to move\n"
-        "Please try a again.\n"
+        "Please use PLACE command to put the robot on the table first, then you can order the robot to move\n"
+    )
+
+
+@mock.patch("sys.stdout", new_callable=StringIO)
+def test_automatic_mode_commands_6_when_place_command_not_first(stdout):
+    commands_filepath = _resource_file("commands_06.txt")
+    automatic_mode(commands_filepath)
+    assert stdout.getvalue() == (
+        "Please use PLACE command to put the robot on the table first, then you can order the robot to move\n"
+        "Output: 1,1,WEST\n"
     )
 
 

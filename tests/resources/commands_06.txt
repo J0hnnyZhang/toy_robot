@@ -1,0 +1,4 @@
+move
+Place 2,1,west
+move
+report
