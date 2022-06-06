@@ -3,7 +3,7 @@ Command interpreter which translate string commands into the commands which the 
 """
 from abc import ABC, abstractmethod
 from types import new_class
-from typing import List, cast, Optional
+from typing import List, cast, Optional, Dict, Type
 
 from toy_robot.commands import (
     MoveCommand,
@@ -29,7 +29,7 @@ class CommandError(Exception):
     pass
 
 
-SIMPLE_COMMANDS = {
+SIMPLE_COMMANDS: Dict[str, Type[Command]] = {
     "MOVE": MoveCommand,
     "LEFT": LeftCommand,
     "RIGHT": RightCommand,
@@ -52,7 +52,9 @@ class SimpleCommandsTranslatorFactory:
         command_translators: List[CommandTranslator] = []
         for cmd in SIMPLE_COMMANDS:
             class_name = f"{cmd[0]}{cmd[1:].lower()}CommandTranslator"
-            translator_class = cast(CommandTranslator, new_class(class_name, (CommandTranslator,)))
+            translator_class = cast(
+                CommandTranslator, new_class(class_name, (CommandTranslator,))
+            )
             translator_class.command = cmd
             setattr(translator_class, "translate", classmethod(translate))
             command_translators.append(translator_class)
