@@ -35,6 +35,11 @@ or install through pip
   pip install -r requirements.txt 
 ```
 
+- run all tests
+```
+  pytest tests
+```
+
 - add pre-commit hooks, **do this only when you want to contribute to this project**, then 
   - when you do `git commit`
   
