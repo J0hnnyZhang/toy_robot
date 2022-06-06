@@ -1,4 +1,4 @@
-from unittest import TestCase, mock
+from unittest import TestCase
 
 from toy_robot.models import Facing, Position, Table, Navigator
 
@@ -60,19 +60,28 @@ class TestPosition(TestCase):
         position = Position(0, 0, Facing.WEST)
         with self.assertRaises(NotImplementedError) as exc_info:
             position.change_facing_to("back")
-        assert exc_info.exception.args[0] == "Invalid arguments, only 'left' and 'right' is allowed for now"
+        assert (
+            exc_info.exception.args[0]
+            == "Invalid arguments, only 'left' and 'right' is allowed for now"
+        )
 
 
 class TestTable(TestCase):
     def test_invalid_table_length(self):
         with self.assertRaises(ValueError) as exe_info:
             Table(-1, 1)
-        assert exe_info.exception.args[0] == "A table should not has negative or zero value for length or width"
+        assert (
+            exe_info.exception.args[0]
+            == "A table should not has negative or zero value for length or width"
+        )
 
     def test_invalid_table_width(self):
         with self.assertRaises(ValueError) as exe_info:
             Table(5, 0)
-        assert exe_info.exception.args[0] == "A table should not has negative or zero value for length or width"
+        assert (
+            exe_info.exception.args[0]
+            == "A table should not has negative or zero value for length or width"
+        )
 
 
 class TestNavigator(TestCase):

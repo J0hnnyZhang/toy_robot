@@ -1,12 +1,10 @@
 from unittest import TestCase, mock
-from unittest.mock import MagicMock
 
 from toy_robot.models import Facing, Navigator, Table
 from toy_robot.robot import Robot, Position
 
 
 class TestRobot(TestCase):
-
     def setUp(self) -> None:
         self.robot = Robot(Navigator(Table()), Position(0, 0, Facing.NORTH))
 
@@ -24,14 +22,20 @@ class TestRobot(TestCase):
 
     def test_set_position(self):
         self.robot.set_position(Position(4, 2, Facing.NORTH))
-        x, y, f = self.robot.current_position.x, self.robot.current_position.y, self.robot.current_position.facing
+        x, y, f = (
+            self.robot.current_position.x,
+            self.robot.current_position.y,
+            self.robot.current_position.facing,
+        )
         assert x == 4
         assert y == 2
         assert f == Facing.NORTH
 
     def test_move_forward_should_call_position_and_navigator(self):
-        with (mock.patch.object(Position, "front") as mocked_front,
-              mock.patch.object(Navigator, "safe") as mocked_safe):
+        with (
+            mock.patch.object(Position, "front") as mocked_front,
+            mock.patch.object(Navigator, "safe") as mocked_safe,
+        ):
             self.robot.move_forward()
 
             mocked_front.assert_called_once()
