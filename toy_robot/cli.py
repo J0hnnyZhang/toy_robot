@@ -49,7 +49,8 @@ def play(robot: Robot):
     :return: no return value
     """
     print(
-        "\nPLACE command to set the robot position on the table;\n"
+        "\nThe SOUTH WEST most corner on the table is considered (0, 0)\n"
+        "PLACE command to set the robot position on the table;\n"
         "MOVE command to order the robot move one step forward;\n"
         "LEFT command to order the robot turn left;\n"
         "RIGHT command to order the robot turn right;\n"
