@@ -1,3 +1,6 @@
+"""
+Robot class for the toy robot game
+"""
 from typing import Optional, List
 
 from toy_robot.command_interpreter import CommandsInterpreter
@@ -17,6 +20,10 @@ def _ensure_place_command_first(func):
 
 
 class Robot(RobotPrototype):
+    """
+    A concrete robot
+    """
+
     def __init__(self, navigator: Navigator, position: Optional[Position] = None):
         self.current_position: Optional[Position] = None
         self.navigator: Navigator = navigator

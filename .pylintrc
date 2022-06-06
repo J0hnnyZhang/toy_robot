@@ -12,3 +12,5 @@ good-names=i,
 max-line-length=120
 [DESIGN]
 min-public-methods=1
+[MESSAGES CONTROL]
+disable=unused-argument
