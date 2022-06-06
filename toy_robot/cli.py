@@ -46,7 +46,7 @@ def play(robot: Robot):
     """
     Interactively, play the toy robot game
     :param robot: Robot
-    :return: None
+    :return: no return value
     """
     print(
         "\nPLACE command to set the robot position on the table;\n"
@@ -67,10 +67,10 @@ def play(robot: Robot):
                 robot.await_orders(commands)
             except CommandError as e:
                 print(e.args[0])
-                print("Please retry a again.")
+                print("Please try a again.")
             except ValueError as e:
                 print(e.args[0])
-                print("Please retry a again.")
+                print("Please try a again.")
     except KeyboardInterrupt:
         print("\nBye, welcome to play next time.")
 
@@ -78,7 +78,7 @@ def play(robot: Robot):
 def interactive_mode():
     """
     Interactively play the toy robot game
-    :return: None
+    :return: no return value
     """
     robot = initialize()
     play(robot)
@@ -88,12 +88,18 @@ def automatic_mode(commands_filepath: str):
     """
     Automatically play the toy robot game
     :param commands_filepath: the path of the file which contains a bunch of commands
-    :return: None
+    :return: no return value
     """
     robot = Robot(Navigator(Table()))
     with open(commands_filepath, "r", encoding="utf-8") as file:
-        for line in file:
-            robot.await_orders([line.strip()])
+        try:
+            robot.await_orders(file.readlines())
+        except CommandError as e:
+            print(e.args[0])
+            print("Please try a again.")
+        except ValueError as e:
+            print(e.args[0])
+            print("Please try a again.")
 
 
 if __name__ == "__main__":

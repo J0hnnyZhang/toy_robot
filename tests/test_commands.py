@@ -1,6 +1,12 @@
 from unittest import mock
 
-from toy_robot.commands import PlaceCommand, MoveCommand, LeftCommand, RightCommand, ReportCommand
+from toy_robot.commands import (
+    PlaceCommand,
+    MoveCommand,
+    LeftCommand,
+    RightCommand,
+    ReportCommand,
+)
 from toy_robot.models import Facing, Position
 from toy_robot.robot import Robot
 

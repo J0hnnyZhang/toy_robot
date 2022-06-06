@@ -52,12 +52,13 @@ def test_automatic_mode_commands_4_when_move_out_of_table(stdout):
     )
 
 
-def test_automatic_mode_commands_5_when_place_command_not_first():
+@mock.patch("sys.stdout", new_callable=StringIO)
+def test_automatic_mode_commands_5_when_place_command_not_first(stdout):
     commands_filepath = _resource_file("commands_05.txt")
-    with pytest.raises(ValueError) as exc_info:
-        automatic_mode(commands_filepath)
-    assert exc_info.value.args[0] == (
-        "Please use PLACE command to put the robot on the table first, then you can order the robot to move"
+    automatic_mode(commands_filepath)
+    assert stdout.getvalue() == (
+        "Please use PLACE command to put the robot on the table first, then you can order the robot to move\n"
+        "Please try a again.\n"
     )
 
 

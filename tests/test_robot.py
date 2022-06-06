@@ -1,5 +1,7 @@
 from unittest import TestCase, mock
 
+import pytest
+
 from toy_robot.models import Facing, Navigator, Table
 from toy_robot.robot import Robot, Position
 
@@ -50,3 +52,11 @@ class TestRobot(TestCase):
     def test_await_orders(self):
         self.robot.await_orders(["PLACE 1,2,EAST", "MOVE", "REPORT"])
         assert self.robot.current_position.x == 2
+
+    def test_await_orders_when_place_command_is_not_called_first(self):
+        robot = Robot(Navigator(Table()))
+        with pytest.raises(ValueError) as exc_info:
+            robot.await_orders(["MOVE", "REPORT"])
+        assert exc_info.value.args[0] == (
+            "Please use PLACE command to put the robot on the table first, then you can order the robot to move"
+        )
