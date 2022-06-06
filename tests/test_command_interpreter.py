@@ -1,8 +1,17 @@
 import pytest
 
-from toy_robot.command_interpreter import SimpleCommandsTranslatorFactory, PlaceCommandTranslator, CommandError, \
-    CommandsInterpreter
-from toy_robot.commands import MoveCommand, LeftCommand, RightCommand, ReportCommand, PlaceCommand
+from toy_robot.command_interpreter import (
+    SimpleCommandsTranslatorFactory,
+    PlaceCommandTranslator,
+    CommandError,
+)
+from toy_robot.commands import (
+    MoveCommand,
+    LeftCommand,
+    RightCommand,
+    ReportCommand,
+    PlaceCommand,
+)
 from toy_robot.models import Position, Facing
 
 
@@ -52,12 +61,16 @@ class TestPlaceCommandTranslator:
     def test_translate_place_command_when_invalid_x(self, robot):
         with pytest.raises(CommandError) as exc_info:
             PlaceCommandTranslator.translate(robot, "r,5,EAST")
-        assert exc_info.value.args[0] == "PLACE command x and y arguments must be integers"
+        assert (
+            exc_info.value.args[0] == "PLACE command x and y arguments must be integers"
+        )
 
     def test_translate_place_command_when_invalid_y(self, robot):
         with pytest.raises(CommandError) as exc_info:
             PlaceCommandTranslator.translate(robot, "1,o,EAST")
-        assert exc_info.value.args[0] == "PLACE command x and y arguments must be integers"
+        assert (
+            exc_info.value.args[0] == "PLACE command x and y arguments must be integers"
+        )
 
     def test_translate_place_command_when_invalid_facing(self, robot):
         with pytest.raises(CommandError) as exc_info:
@@ -75,7 +88,9 @@ class TestCommandsInterpreter:
         assert commands[0].position == Position(0, 0, Facing.EAST)
 
     def test_interpret_when_multiple_commands(self, command_interpreter):
-        commands = command_interpreter.interpret([" PLACE 0,0,EAST ", "moVe", "left", "Right", "report "])
+        commands = command_interpreter.interpret(
+            [" PLACE 0,0,EAST ", "moVe", "left", "Right", "report "]
+        )
         assert len(commands) == 5
         assert isinstance(commands[0], PlaceCommand) is True
         assert isinstance(commands[1], MoveCommand) is True
@@ -98,6 +113,8 @@ class TestCommandsInterpreter:
             "Unsupported command of JUMP, supported commands: ['PLACE', 'MOVE', 'LEFT', 'RIGHT', 'REPORT']"
         )
 
-    def test_interpret_will_ignore_args_when_simple_command_has_args(self, command_interpreter):
+    def test_interpret_will_ignore_args_when_simple_command_has_args(
+        self, command_interpreter
+    ):
         move_command = command_interpreter.interpret(["MOVE 1,2,SOUTH_EAST"])
         assert isinstance(move_command[0], MoveCommand) is True

@@ -1,3 +1,5 @@
+[MASTER]
+ignore-patterns=(.)*test\.py,test_(.)*\.py
 [BASIC]
 good-names=i,
            j,
