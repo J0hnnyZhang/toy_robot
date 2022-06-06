@@ -38,7 +38,7 @@ or install through pip
 - add pre-commit hooks, **do this only when you want to contribute to this project**, then 
   - when you do `git commit`
   
-    `black` and `pylint` will run, `black` to reformat the changed files and `pylint` to check if the change files are in
+    `black` and `pylint` will run, `black` to reformat the changed files and `pylint` to check if the changed files are in
   good code style.
   - when do `git push`
    
@@ -77,6 +77,7 @@ python toy_robot/cli.py tests/resources/commands_01.txt
 ### Probable issues
 
 - "ModuleNotFoundError: No module named 'toy_robot'"
+  
   You can fix it by add the toy_robot root directory to `PYTHONPATH`
 
 ```
