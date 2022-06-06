@@ -3,8 +3,6 @@ import sys
 from io import StringIO
 from unittest import mock
 
-import pytest
-
 from toy_robot.cli import automatic_mode, interactive_mode
 
 DIR = os.path.dirname(os.path.realpath(__file__))
