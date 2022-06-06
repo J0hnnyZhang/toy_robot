@@ -6,6 +6,7 @@ authors = ["J0hnny Zhang <dew.maple@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pre-commit = "^2.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
